@@ -1,7 +1,7 @@
 https://leetcode.com/problems/first-missing-positive/
 ---
-###HARD QUES AMAZON
-### **Code with tiny comments**
+### HARD QUES AMAZON
+### **Code **
 
 ```java
 import java.util.Arrays;
