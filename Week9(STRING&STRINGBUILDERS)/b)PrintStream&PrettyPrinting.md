@@ -110,3 +110,110 @@ Formatted number is 453.12
 
 ---
 
+---
+
+```java
+public class Main {
+```
+
+* Declares a **public class** named `Main`
+* **File name must match class name** → `Main.java`
+* This is the **container** for all your code
+
+---
+
+```java
+public static void main(String[] args) {
+```
+
+* **Entry point** of the program
+* JVM starts execution from here
+* **Always remember this exact signature**
+
+---
+
+```java
+System.out.printf("pi: %.3f", Math.PI);
+```
+
+* `System` → built-in class
+* `out` → reference variable of type `PrintStream` (points to console)
+* `printf()` → prints formatted text
+* `"pi: %.3f"` → **format string**
+
+  * `%` → placeholder
+  * `.3` → **3 digits after decimal**
+  * `f` → floating-point
+* `Math.PI` → the value of π (~3.14159265)
+* Output:
+
+```
+pi: 3.142
+```
+
+> Only 3 digits after decimal because of `.3f`
+
+---
+
+```java
+System.out.println(Math.PI);
+```
+
+* `println()` → prints **value of Math.PI** **as it is**
+* Output:
+
+```
+3.141592653589793
+```
+
+* Goes to **new line automatically**
+
+---
+
+```java
+System.out.printf(" hello this is %s & i am %s", "subha", "cool");
+```
+
+* `printf()` → formatted print
+* `"hello this is %s & i am %s"` → format string with **2 placeholders**
+
+  * `%s` → string placeholder
+* `"subha"` → fills the **first `%s`**
+* `"cool"` → fills the **second `%s`**
+* Output:
+
+```
+hello this is subha & i am cool
+```
+
+> `printf` **does not add a new line automatically**, unlike `println`
+
+---
+
+```java
+}
+```
+
+* Closes `main()` method
+
+```java
+}
+```
+
+* Closes `Main` class
+
+---
+
+### 🔒 Key things to remember
+
+1. `System.out.printf()` → **formatted printing**
+
+   * Placeholders: `%f` (float/double), `%s` (string), `%d` (int), etc.
+   * `.Nf` → **N digits after decimal**
+2. `System.out.println()` → prints **value as-is** + goes to **new line**
+3. Format string **inside quotes** contains **placeholders**, values come **after comma**
+4. Class name = file name
+5. `main()` is **always the entry point**
+
+---
+
