@@ -185,3 +185,94 @@ Output:
 > Join if String.
 > Error if confused.**
 
+---
+
+## What are **primitives**?
+
+👉 **Primitive types are basic data types that store actual values, not objects.**
+
+They are **NOT classes**.
+They don’t have methods.
+They just hold data.
+
+---
+
+## Java has **8 primitive types** (memorize this list)
+
+### 🔢 Numbers
+
+* `byte`
+* `short`
+* `int`
+* `long`
+
+### 🔢 Decimals
+
+* `float`
+* `double`
+
+### 🔤 Character
+
+* `char`
+
+### ✅ True / False
+
+* `boolean`
+
+That’s it. Only **8**.
+
+---
+
+## Example
+
+```java
+int a = 10;
+float b = 3.5f;
+char c = 'a';
+boolean ok = true;
+```
+
+These variables store the **actual value directly**.
+
+---
+
+## Primitive vs Object (important difference)
+
+### Primitive
+
+```java
+int x = 5;
+```
+
+* Stores `5`
+* No methods
+* Faster
+* No `toString()`
+
+### Object
+
+```java
+Integer y = 5;
+```
+
+* Stores a **reference**
+* Has methods
+* Uses heap memory
+* Can be `null`
+
+---
+
+## Why this matters for `+` operator
+
+* **Primitive + Primitive** → **math**
+* `char` is primitive → behaves like a number
+* Object + Object ❌
+* String involved → concatenation
+
+---
+
+## One-line brain lock 🔒
+
+> **Primitives are basic value types. Objects are references to data.**
+
+
