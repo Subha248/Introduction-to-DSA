@@ -89,3 +89,85 @@ System.out.println();
 
 ---
 
+---
+
+## **Pattern4 — Increasing Numbers Triangle**
+
+### **Code**
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        pattern3(4);
+    }
+
+    static void pattern4(int n) {
+        for (int row = 1; row <= n; row++) {         // rows
+            for (int col = 1; col <= row; col++) {   // columns
+                System.out.print(col + " ");         // print column number
+            }
+            System.out.println();                     // move to next row
+        }
+    }
+}
+```
+
+---
+
+## **Step 1: Rows (Outer Loop)**
+
+```java
+for (int row = 1; row <= n; row++)
+```
+
+* Outer loop runs `n` times → 4 rows.
+* Each iteration corresponds to **one line of output**.
+
+---
+
+## **Step 2: Columns (Inner Loop)**
+
+```java
+for (int col = 1; col <= row; col++)
+```
+
+* Number of columns in each row = **row number**
+* Row 1 → 1 column
+* Row 2 → 2 columns
+* Row 3 → 3 columns
+* Row 4 → 4 columns
+
+---
+
+## **Step 3: What to Print**
+
+```java
+System.out.print(col + " ");
+```
+
+* Prints **the column number** instead of `*`.
+* `System.out.println()` moves to the next row after each inner loop.
+
+---
+
+## **Output (n = 4)**
+
+```
+1 
+1 2 
+1 2 3 
+1 2 3 4 
+```
+
+---
+
+### **Summary**
+
+1. Outer loop → controls rows
+2. Inner loop → controls columns (depends on current row)
+3. Print → shows **column index** for pattern
+4. Logic → forms a **number-increasing triangle**
+
+---
+
+
