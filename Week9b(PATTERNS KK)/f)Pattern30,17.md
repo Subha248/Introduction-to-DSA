@@ -145,3 +145,122 @@ Example:
 * Works for any `n`
 
 You’re now doing **advanced pattern composition**, not beginner stuff anymore.
+---
+---
+### **Pattern17— Diamond-Shaped Palindromic Number Pattern**
+
+**Output for `n = 4`:**
+
+```
+      1 
+    2 1 2 
+  3 2 1 2 3 
+4 3 2 1 2 3 4 
+  3 2 1 2 3 
+    2 1 2 
+      1 
+```
+
+---
+
+## **Simple Explanation (Clean & Professional)**
+
+This pattern prints a **center-aligned diamond** where:
+
+* Numbers **decrease to 1** and then **increase back** (palindrome)
+* The pattern **grows** till the middle row, then **shrinks**
+
+---
+
+## **Code**
+
+```java
+public class Pattern17{
+    public static void main(String[] args) {
+        pattern17(4);
+    }
+
+    public static void pattern17(int n) {
+        for (int row = 1; row < 2 * n; row++) {
+            int c = row > n ? 2 * n - row : row;
+
+            // spaces
+            for (int s = 1; s <= n - c; s++) {
+                System.out.print("  ");
+            }
+
+            // decreasing numbers
+            for (int col = c; col >= 1; col--) {
+                System.out.print(col + " ");
+            }
+
+            // increasing numbers
+            for (int col = 2; col <= c; col++) {
+                System.out.print(col + " ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+```
+
+---
+
+## **How It Works (3-Step Approach)**
+
+### **1️⃣ Rows**
+
+```java
+for (int row = 1; row < 2 * n; row++)
+```
+
+* Total rows = `2*n - 1`
+* For `n = 4` → **7 rows**
+* Upper half grows, lower half shrinks
+
+---
+
+### **2️⃣ Columns / Numbers Count**
+
+```java
+int c = row > n ? 2 * n - row : row;
+```
+
+* `c` decides:
+
+  * how many numbers to print
+  * which number to start from
+* Before middle → `c = row`
+* After middle → `c = 2*n - row`
+
+---
+
+### **3️⃣ What to Print**
+
+* **Spaces** → `n - c` (for centering)
+* **Left side** → numbers from `c` down to `1`
+* **Right side** → numbers from `2` up to `c`
+* This avoids repeating `1` and keeps symmetry
+
+---
+
+## **Quick Dry Run (n = 4)**
+
+| Row | c | Spaces | Numbers         |
+| --- | - | ------ | --------------- |
+| 1   | 1 | 3      | `1`             |
+| 2   | 2 | 2      | `2 1 2`         |
+| 3   | 3 | 1      | `3 2 1 2 3`     |
+| 4   | 4 | 0      | `4 3 2 1 2 3 4` |
+| 5   | 3 | 1      | `3 2 1 2 3`     |
+| 6   | 2 | 2      | `2 1 2`         |
+| 7   | 1 | 3      | `1`             |
+
+---
+
+## **In One Line**
+
+* **Rows** → `2*n - 1`
+* **Spaces** → `n - c`
+* **Numbers** → palindrome from `c` to `1` to `c`
