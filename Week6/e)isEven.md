@@ -1,4 +1,8 @@
+## 🔹 Question 
 
+**Given an array of integers, count how many numbers contain an even number of digits.**
+
+---
 ```java
 public class Even {
     public static void main(String[] args) {
@@ -65,33 +69,142 @@ public class Even {
 
 ---
 
-### Step-by-step flow:
+## 🔹 Input
 
-1. **Main method**
-
-   * `nums` array has `{12, 345, 2, 6, 7896}`.
-   * `findNumbers(nums)` is called to count numbers with **even digits**.
-
-2. **`findNumbers` method**
-
-   * Loops through each number in `nums`.
-   * Calls `isEven(no)` to check if the number of digits is even.
-   * Increments `count` for every number that passes the check.
-
-3. **`isEven` method**
-
-   * Calls `counts(no)` to get the number of digits.
-   * Returns `true` if the number of digits is even.
-
-4. **`counts` method**
-
-   * Converts negative numbers to positive.
-   * Special case for 0 (1 digit).
-   * Loops and divides by 10 to count digits.
-
-5. **Back in `main`**
-
-   * The returned `evencount` is printed → `3` (numbers with even digits: `12`, `2`, `7896`).
+```java
+int nums[] = {12, 345, 2, 6, 7896};
+```
 
 ---
+
+## 🔹 Output
+
+```text
+2
+```
+
+👉 Because **12** (2 digits) and **7896** (4 digits) have even digits.
+
+---
+
+## 🔹 Big Picture (what happens overall)
+
+1. `main()` sends the array to `findNumbers()`
+2. `findNumbers()` loops through each number
+3. For each number → `isEven()` checks if digit count is even
+4. `isEven()` calls `counts()` to count digits
+5. If digit count is even → increase `count`
+6. Final count is printed
+
+Simple. No drama.
+
+---
+
+## 🔹 Dry Run (step-by-step like a boss)
+
+### Array:
+
+```text
+{12, 345, 2, 6, 7896}
+```
+
+### Initial:
+
+```text
+count = 0
+```
+
+---
+
+### ▶ Number = 12
+
+* `counts(12)`
+
+  * 12 → 1 digit
+  * 1 → 2 digits
+* returns **2**
+* 2 % 2 == 0 ✅
+* `count = 1`
+
+---
+
+### ▶ Number = 345
+
+* `counts(345)` → **3**
+* 3 % 2 != 0 ❌
+* `count = 1`
+
+---
+
+### ▶ Number = 2
+
+* `counts(2)` → **1**
+* Odd ❌
+* `count = 1`
+
+---
+
+### ▶ Number = 6
+
+* `counts(6)` → **1**
+* Odd ❌
+* `count = 1`
+
+---
+
+### ▶ Number = 7896
+
+* `counts(7896)` → **4**
+* Even ✅
+* `count = 2`
+
+---
+
+### 🔹 Final Value Returned
+
+```text
+2
+```
+
+---
+
+## 🔹 Method-wise Explanation (short & sharp)
+
+### `findNumbers(int[] nums)`
+
+👉 Loops through array and counts numbers with even digits.
+
+---
+
+### `isEven(int no)`
+
+👉 Calls `counts(no)`
+👉 Returns `true` if digit count is even.
+
+---
+
+### `counts(int no)`
+
+👉 Handles:
+
+* Negative numbers
+* Zero case
+* Counts digits using `while(no > 0)`
+
+This is **pure logic**, no magic.
+
+---
+
+## 🔹 Why this code is GOOD
+
+✔ Modular (small methods, clean logic)
+✔ Handles edge cases (0, negative numbers)
+✔ Easy to debug
+✔ Interview-safe
+
+---
+
+## 🔹 One-line summary (exam gold)
+
+> This program counts how many numbers in an array have an even number of digits by calculating the digit count of each number and checking its parity.
 
