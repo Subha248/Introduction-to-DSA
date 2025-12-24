@@ -69,7 +69,6 @@
 * `width` → minimum field width
 
 ---
-Perfect. Here’s your **one-line cheat sheet for Java placeholders** — memorize this and you’re golden:
 
 ---
 
