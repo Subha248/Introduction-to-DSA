@@ -1,4 +1,3 @@
-### here’s the **must-know list of placeholders** in Java’s `printf` / `String.format()` — short, clean, exam/interview ready:
 
 ---
 
