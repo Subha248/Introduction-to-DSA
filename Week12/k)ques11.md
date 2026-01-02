@@ -127,3 +127,19 @@ That’s a full-mark answer. No overthinking.
 * Power of 2 → **left shift**
 * Left shift → **`1 << n`**
 
+
+Let me just tighten it so it’s rock-solid in your head:
+
+* Pascal’s Triangle **starts at row 0**
+* **Row 0 sum = 1 = 2⁰**
+* Every next row’s sum **doubles**
+* So **row n sum = 2ⁿ**
+* In Java, **2ⁿ = `1 << n`**
+* Therefore → **left shift gives the answer instantly**
+
+That’s literally it. No hidden trick. No extra math lurking behind the curtain.
+
+If you can say this out loud in an exam or interview, you’re golden:
+
+> “Since the 0th row sum is 2⁰ and each row doubles, the nth row sum is 2ⁿ, which can be computed using `1 << n`.”
+
