@@ -148,4 +148,3 @@ Print all numbers where `isNotPrime[number] == false`:
 
 ---
 
-If you want, I can now do the same dry run for **n = 40**, or explain how this works in memory (stack/heap). Just say the word.
