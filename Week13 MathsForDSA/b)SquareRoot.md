@@ -229,5 +229,110 @@ for(int i = 0; i < p; i++){
 ```
 
 ---
+---
+
+# 1️⃣ QUESTION
+
+> Find the square root of 40 using the **Newton-Raphson method** in Java.
+> Stop when the guess stops changing significantly. Explain **why we start with x = n**, **why n doesn’t change**, **why we check Math.abs(root - x)**, and trace **all iterations**.
+
+---
+
+# 2️⃣ FULL WORKING CODE
+
+```java
+public class NewtonSQRT {
+    public static void main(String[] args) {
+        double n = 40; // number whose square root we want
+        double root = sqrt(n);
+        System.out.println("Square root of " + n + " ≈ " + root);
+    }
+
+    static double sqrt(double n) {
+        double x = n;          // initial guess
+        double root;
+
+        while (true) {
+            root = 0.5 * (x + (n / x)); // Newton-Raphson formula
+
+            // STOP CONDITION: when improvement is tiny
+            if (Math.abs(root - x) < 0.000001) {
+                break;
+            }
+
+            x = root; // update guess for next iteration
+        }
+
+        return root;
+    }
+}
+```
+
+---
+
+# 3️⃣ LINE-BY-LINE EXPLANATION
+
+| Line                                 | Explanation                                                                                                                                                                                                          |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `double n = 40;`                     | The number whose square root we want. **This NEVER changes**.                                                                                                                                                        |
+| `double root = sqrt(n);`             | Calls our Newton-Raphson function.                                                                                                                                                                                   |
+| `double x = n;`                      | Initial guess. Could be anything, we chose `x = n` because it’s simple. **x changes every iteration**, n does NOT.                                                                                                   |
+| `root = 0.5 * (x + (n / x));`        | Newton-Raphson formula. It improves the guess: <br> - `x` = current guess <br> - `n / x` = correction factor <br> - Average them → new guess                                                                         |
+| `if (Math.abs(root - x) < 0.000001)` | Checks **how much the guess changed**. <br> - If the difference is tiny → stop, because further improvement is pointless. <br> - This is why we don’t need `root == exact value`. Computers can’t do exact decimals. |
+| `x = root;`                          | Update the guess for the next iteration. Only **x changes**. `n` stays the same.                                                                                                                                     |
+| `return root;`                       | Return the final guess as the approximate square root.                                                                                                                                                               |
+
+---
+
+# 4️⃣ DRY RUN FOR n = 40
+
+| Iteration | x (old guess) | n/x  | root = 0.5*(x+n/x) | |root - x| | Note |
+|-----------|---------------|------|-------------------|------------|------|
+| 1         | 40.0          | 1.0  | 20.5              | 19.5       | First improvement |
+| 2         | 20.5          | 1.951| 11.225            | 9.275      | Guess gets smaller |
+| 3         | 11.225        | 3.565| 7.395             | 3.83       | Closer to actual √40 |
+| 4         | 7.395         | 5.408| 6.401             | 0.994      | Converging |
+| 5         | 6.401         | 6.247| 6.324             | 0.077      | Almost there |
+| 6         | 6.324         | 6.327| 6.325             | 0.001      | Very close |
+| 7         | 6.325         | 6.324| 6.3249            | 0.0001     | Difference < 0.000001 → STOP |
+
+---
+
+# ✅ OUTPUT
+
+```
+Square root of 40 ≈ 6.324555
+```
+
+---
+
+# 5️⃣ ANSWERS TO YOUR  DOUBTS
+
+1. **x = n → does n change?**
+
+   * NOPE. `n` stays **fixed**. Only `x` updates every loop.
+   * `x` moves: 40 → 20.5 → 11.225 → 7.395 → … → 6.3249
+
+2. **Why use `Math.abs(root - x) < tiny_value`?**
+
+   * It checks **if our guess stopped improving**.
+   * Computers can’t store exact decimals, so we stop when the change is small enough.
+
+3. **What happens if guess and n were the same?**
+
+   * It won’t stay the same because the formula will adjust it: `(x + n/x)/2`.
+   * Example: x = 40, n = 40 → new root = (40 + 40/40)/2 = 20.5 → changes instantly.
+
+4. **Why start with x = n at all?**
+
+   * Just a simple starting point. Could be 1, n/2, anything. Newton-Raphson will pull it to the correct value anyway.
+
+---
+
+💥 THERE.
+This is **full question → code → line-by-line → dry run → output → all doubts answered**.
+
+---
+
 
 
