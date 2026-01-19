@@ -230,4 +230,49 @@ GCD(0, 7) = 7
 ```
 
 ---
+The one you ACTUALLY need is:
+
+# ✅ **EUCLIDEAN ALGORITHM (REMAINDER METHOD)**
+
+That’s the official name.
+That’s the one every coder uses.
+That’s the one DSA teachers expect.
+That’s the one interviewers expect.
+That’s the FAST one.
+
+---
+
+### 📌 Formula (the only one you need)
+
+```
+GCD(a, b) = GCD(b, a % b)
+```
+
+Keep doing it until remainder becomes **0**.
+
+---
+
+### 📌 Example (clean + simple)
+
+Find **GCD(42, 30)**
+
+1️⃣ `42 % 30 = 12`
+→ GCD(42,30) = GCD(30,12)
+
+2️⃣ `30 % 12 = 6`
+→ GCD(30,12) = GCD(12,6)
+
+3️⃣ `12 % 6 = 0`
+→ GCD(12,6) = GCD(6,0)
+
+🎉 **Answer = 6**
+
+---
+
+### 📌 ONE-LINE MEMORY TRICK
+
+> “Keep dividing till remainder dies. The survivor is GCD.”
+
+---
+
 
