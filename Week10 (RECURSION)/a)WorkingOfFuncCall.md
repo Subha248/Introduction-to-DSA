@@ -19,7 +19,14 @@ Now I’ll explain these **only using Example B**.
 ## Example B Code (same idea, no changes)
 
 ```java
-static void print1(int n) {
+
+import java.util.Scanner;
+public class Main{
+  public static void main(String[] args){
+    int n=5;
+      print1(n);
+  }
+    static void print1(int n) {
     System.out.println(n);
     print2(2);
 }
@@ -41,6 +48,7 @@ static void print4(int n) {
 
 static void print5(int n) {
     System.out.println(n);
+}
 }
 ```
 
