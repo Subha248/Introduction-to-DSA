@@ -106,6 +106,265 @@ fibo(1) fibo(0)
 * Base conditions (`fibo(0)` and `fibo(1)`) are the **leaf nodes**.
 * Values return **bottom-up**, combining results until the final answer reaches `main()`.
 
+```java
+static int fibo(int n) {
+    if (n < 2) {
+        return n;
+    }
+    return fibo(n - 1) + fibo(n - 2);
+}
+```
+
+We’ll trace:
+👉 `fibo(4)`
+
+---
+
+## 🌱 First, what Fibonacci means
+
+```
+fibo(0) = 0
+fibo(1) = 1
+fibo(2) = fibo(1) + fibo(0) = 1
+fibo(3) = fibo(2) + fibo(1) = 2
+fibo(4) = fibo(3) + fibo(2) = 3
+```
+
+---
+
+## 🧠 What happens in memory (STACK)
+
+Each function call gets its **own stack frame** storing:
+
+* value of `n`
+* waiting spot for return value
+
+---
+
+## ▶️ Step-by-step execution of `fibo(4)`
+
+### 🟢 Call 1
+
+```
+fibo(4)
+```
+
+Not base case → needs:
+
+```
+fibo(3) + fibo(2)
+```
+
+So it calls **fibo(3)** first.
+
+Stack:
+
+```
+fibo(4)
+```
+
+---
+
+### 🟢 Call 2
+
+```
+fibo(3)
+```
+
+Needs:
+
+```
+fibo(2) + fibo(1)
+```
+
+Calls **fibo(2)**
+
+Stack:
+
+```
+fibo(3)
+fibo(4)
+```
+
+---
+
+### 🟢 Call 3
+
+```
+fibo(2)
+```
+
+Needs:
+
+```
+fibo(1) + fibo(0)
+```
+
+Calls **fibo(1)**
+
+Stack:
+
+```
+fibo(2)
+fibo(3)
+fibo(4)
+```
+
+---
+
+### 🟢 Call 4 (Base Case)
+
+```
+fibo(1) → returns 1
+```
+
+Stack pops:
+
+```
+fibo(2)
+fibo(3)
+fibo(4)
+```
+
+Now fibo(2) calls **fibo(0)**
+
+---
+
+### 🟢 Call 5 (Base Case)
+
+```
+fibo(0) → returns 0
+```
+
+Now fibo(2) has both answers:
+
+```
+fibo(1) + fibo(0) = 1 + 0 = 1
+```
+
+So fibo(2) returns **1**
+
+Stack:
+
+```
+fibo(3)
+fibo(4)
+```
+
+---
+
+### Back to fibo(3)
+
+Now it needs:
+
+```
+fibo(2) + fibo(1)
+```
+
+We just got fibo(2) = 1
+Now it calls fibo(1)
+
+---
+
+### 🟢 Call 6 (Base Case)
+
+```
+fibo(1) → returns 1
+```
+
+So fibo(3):
+
+```
+1 + 1 = 2
+```
+
+Returns **2**
+
+Stack:
+
+```
+fibo(4)
+```
+
+---
+
+### Back to fibo(4)
+
+Now it needs:
+
+```
+fibo(3) + fibo(2)
+= 2 + ?
+```
+
+So it calls fibo(2) AGAIN (new stack frame!)
+
+---
+
+### 🟢 Call 7
+
+```
+fibo(2)
+```
+
+Needs fibo(1) + fibo(0)
+
+Calls fibo(1) → returns 1
+Calls fibo(0) → returns 0
+
+Returns **1**
+
+---
+
+### Final step
+
+```
+fibo(4) = 2 + 1 = 3
+```
+
+Stack becomes empty. Done.
+
+---
+
+## 📊 Stack Expansion Shape
+
+```
+                fibo(4)
+           /               \
+       fibo(3)             fibo(2)
+      /       \           /      \
+  fibo(2)   fibo(1)   fibo(1)  fibo(0)
+  /     \
+fibo(1) fibo(0)
+```
+
+Every node = separate stack frame.
+
+---
+
+## ⚠️ WHY FIBONACCI IS EXPENSIVE
+
+Notice:
+
+* fibo(2) is calculated multiple times
+* fibo(1) and fibo(0) repeat a lot
+
+This causes **exponential growth of stack calls**
+
+That’s why large `n` becomes slow and can crash with StackOverflowError.
+
+---
+
+## 🔑 CORE MEMORY RULE YOU JUST SAW
+
+Each recursive call:
+
+* gets its own copy of `n`
+* waits until its smaller calls finish
+* then combines answers and returns
+
+Nobody leaves the stack until their job is fully done.
+
 This clearly shows:
 
 * How the **stack is filled**
