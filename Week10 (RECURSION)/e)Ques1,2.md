@@ -1,4 +1,4 @@
-
+### Ques1:
 Your code:
 
 ```java
@@ -274,7 +274,8 @@ Up = prints
 | After recursive call  | While coming UP  |
 
 
-----------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### Ques 2:
 This prints numbers **while going down** *and* **while coming back up** the stack.
 
 Your code:
