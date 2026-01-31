@@ -121,7 +121,8 @@ Because they just **printed**, no value needed later.
 So we must return an `int`.
 
 ---
-
+---
+### Ques4:
 
 ## 6️⃣ Same Pattern for SUM
 
