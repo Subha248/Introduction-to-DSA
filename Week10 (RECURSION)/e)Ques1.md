@@ -274,4 +274,120 @@ Up = prints
 | After recursive call  | While coming UP  |
 
 
-Wanna level up next with factorial or sum using this same stack idea?
+----------
+This prints numbers **while going down** *and* **while coming back up** the stack.
+
+Your code:
+
+```java
+public static void funst(int n){
+    if(n==0) return;
+
+    System.out.println(n);  // (1) BEFORE recursion
+    funst(n-1);             // (2) recursive call
+    System.out.println(n);  // (3) AFTER recursion
+}
+```
+
+You call:
+
+```java
+funst(5);
+```
+
+---
+
+# 🧠 Two Print Zones
+
+| Line                | When it runs          | Phase         |
+| ------------------- | --------------------- | ------------- |
+| First `println(n)`  | Before recursive call | ⬇️ Going DOWN |
+| Second `println(n)` | After recursive call  | ⬆️ Coming UP  |
+
+So every number prints **twice**:
+
+* Once on the way down
+* Once on the way up
+
+---
+
+# ⬇️ GOING DOWN (Stack Building)
+
+| Call     | Prints |
+| -------- | ------ |
+| funst(5) | 5      |
+| funst(4) | 4      |
+| funst(3) | 3      |
+| funst(2) | 2      |
+| funst(1) | 1      |
+| funst(0) | stops  |
+
+So far output is:
+
+```
+5
+4
+3
+2
+1
+```
+
+No second prints yet — they are waiting.
+
+---
+
+# ⬆️ COMING BACK UP (Stack Unwinding)
+
+Now each paused function resumes **after** the recursive call.
+
+| Returning To | Prints |
+| ------------ | ------ |
+| funst(1)     | 1      |
+| funst(2)     | 2      |
+| funst(3)     | 3      |
+| funst(4)     | 4      |
+| funst(5)     | 5      |
+
+---
+
+# 🖨 FINAL OUTPUT
+
+```
+5
+4
+3
+2
+1
+1
+2
+3
+4
+5
+```
+
+---
+
+# 🎯 Visual Staircase
+
+Think of it like shouting numbers while going down stairs and again while climbing back up:
+
+```
+Going down:   5 4 3 2 1
+Coming up:    1 2 3 4 5
+```
+
+---
+
+# 🔥 Golden Recursion Insight
+
+If a statement is:
+
+* **Before** recursive call → runs while going DOWN
+* **After** recursive call → runs while coming UP
+
+You just unlocked one of the most important recursion patterns used in:
+✔ Tree traversals
+✔ Backtracking
+✔ Divide & conquer
+
+
