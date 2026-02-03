@@ -196,3 +196,194 @@ public class Main {
     }
 }
 ```
+
+This program also **reverses a number**, but in a more “pure recursion” way — no global variable.
+
+Input:
+
+```
+1234
+```
+
+Output:
+
+```
+4321
+```
+
+---
+
+## 🌟 Big Idea
+
+Instead of building the reversed number step-by-step in a shared variable, this method:
+
+👉 Places each digit **directly in its correct reversed position**
+👉 Uses **return values** to build the final answer
+
+---
+
+## 🧱 Step 1 — main()
+
+```java
+int n = 1234;
+System.out.println(rev2(n));
+```
+
+We call `rev2(1234)` and print whatever it returns.
+
+---
+
+## 🧱 Step 2 — rev2(n)
+
+```java
+static int rev2(int n) {
+    int digits = (int)(Math.log10(n)) + 1;
+    return helper(n, digits);
+}
+```
+
+### What happens here?
+
+We calculate how many digits the number has.
+
+For `1234`:
+
+```
+log10(1234) ≈ 3.xxx
+(int) → 3
++ 1 → 4 digits
+```
+
+So we call:
+
+```
+helper(1234, 4)
+```
+
+That 4 tells us the **highest place value** we’ll need.
+
+---
+
+## 🧱 Step 3 — helper(n, digits)
+
+```java
+static int helper(int n, int digits) {
+    if (n % 10 == n) return n;
+
+    int rem = n % 10;
+    return rem * (int)Math.pow(10, digits - 1)
+            + helper(n / 10, digits - 1);
+}
+```
+
+This function handles **one digit per call**.
+
+---
+
+## 🔄 Full Step-by-Step Execution
+
+### Call 1 → helper(1234, 4)
+
+* rem = 4
+* Place it in thousands place:
+
+  ```
+  4 × 10³ = 4000
+  ```
+* Remaining problem: helper(123, 3)
+
+So:
+
+```
+= 4000 + helper(123, 3)
+```
+
+---
+
+### Call 2 → helper(123, 3)
+
+* rem = 3
+* Place in hundreds place:
+
+  ```
+  3 × 10² = 300
+  ```
+* Remaining: helper(12, 2)
+
+So:
+
+```
+= 300 + helper(12, 2)
+```
+
+---
+
+### Call 3 → helper(12, 2)
+
+* rem = 2
+* Place in tens place:
+
+  ```
+  2 × 10¹ = 20
+  ```
+* Remaining: helper(1, 1)
+
+So:
+
+```
+= 20 + helper(1, 1)
+```
+
+---
+
+### Call 4 → helper(1, 1)
+
+Base case:
+
+```
+n % 10 == n  → single digit
+return 1
+```
+
+---
+
+## ⬆️ Now values return back
+
+```
+20 + 1 = 21
+300 + 21 = 321
+4000 + 321 = 4321
+```
+
+Final answer returned to `main()` → printed.
+
+---
+
+## 🧠 Core Understanding
+
+Each step does:
+
+```
+(last digit × correct place value) + result of remaining digits
+```
+
+We are not storing anything outside — everything is built using return values.
+
+---
+
+## 🆚 Difference from previous method
+
+| Previous Method     | This Method              |
+| ------------------- | ------------------------ |
+| Used global `sum`   | No global variable       |
+| Updates same memory | Uses return values       |
+| Easier to grasp     | Stronger recursion logic |
+
+---
+
+## 📌 One-line professional explanation
+
+> The program reverses a number by recursively placing each digit at its correct positional value using powers of 10 and combining results through return values.
+
+---
+
