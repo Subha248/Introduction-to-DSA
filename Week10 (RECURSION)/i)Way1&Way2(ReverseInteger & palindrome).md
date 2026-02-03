@@ -384,6 +384,131 @@ We are not storing anything outside — everything is built using return values.
 ## 📌 One-line professional explanation
 
 > The program reverses a number by recursively placing each digit at its correct positional value using powers of 10 and combining results through return values.
+---
+---
+ Palindrome = **same forward and backward**. Kunal just piggybacks on the reverse logic you already learned.
 
 ---
+
+# ✅ Method 1 — Reuse Reverse (Clean & Smart)
+
+### Idea
+
+If
+
+```
+n == reverse(n)
+```
+
+then it’s a palindrome. Done.
+
+### Code
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        int n = 121;
+        System.out.println(palindrome(n)); // true
+    }
+
+    static boolean palindrome(int n) {
+        return n == rev(n);
+    }
+
+    // Reverse using pure recursion (Way 2 style)
+    static int rev(int n) {
+        int digits = (int)(Math.log10(n)) + 1;
+        return helper(n, digits);
+    }
+
+    static int helper(int n, int digits) {
+        if (n % 10 == n) return n;
+
+        int rem = n % 10;
+        return rem * (int)Math.pow(10, digits - 1)
+                + helper(n / 10, digits - 1);
+    }
+}
+```
+
+### What happens for `121`
+
+Reverse becomes `121` → comparison → `true`.
+
+For `123`
+Reverse becomes `321` → not equal → `false`.
+
+### Why this method is nice
+
+You already debugged reverse logic. So palindrome becomes a **one-line check**. Efficient brain usage.
+
+---
+
+# 🔄 Method 2 — Compare First and Last Digit (Without Full Reverse)
+
+Instead of reversing, we compare digits from **outside → inside**.
+
+Example: `1221`
+
+Check:
+
+* First = 1, Last = 1 ✅
+* Next First = 2, Next Last = 2 ✅
+  All matched → palindrome
+
+This is easier if we treat number like a string.
+
+---
+
+### Code (String + Recursion)
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        int n = 1221;
+        System.out.println(isPalindrome(String.valueOf(n), 0, String.valueOf(n).length() - 1));
+    }
+
+    static boolean isPalindrome(String s, int start, int end) {
+        if (start >= end) return true;
+
+        if (s.charAt(start) != s.charAt(end)) return false;
+
+        return isPalindrome(s, start + 1, end - 1);
+    }
+}
+```
+
+---
+
+### Step-by-step for `"1221"`
+
+| Start | End | Compare | Result |
+| ----- | --- | ------- | ------ |
+| 0     | 3   | 1 vs 1  | OK     |
+| 1     | 2   | 2 vs 2  | OK     |
+| 2     | 1   | stop    | true   |
+
+---
+
+# 🧠 What Kunal wants you to learn
+
+| Method               | Concept                                      |
+| -------------------- | -------------------------------------------- |
+| Reuse reverse        | **Code reuse saves effort**                  |
+| Digit compare inward | **Two-pointer recursion**                    |
+| Boolean return       | Recursion can return **true/false directly** |
+
+---
+
+# 🎯 Exam/DSA Takeaway
+
+You should remember:
+
+✔ Palindrome = `n == reverse(n)`
+✔ Boolean functions can directly return comparisons
+✔ Recursion can move from **outside → inside**
+
 
