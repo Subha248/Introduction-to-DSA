@@ -298,3 +298,169 @@ It’s literally:
 Once you see that, DS problems become mechanical.
 
 ---
+---
+### Ques 4:
+---
+
+## ✅ QUESTION
+
+**Find all indices of a target element in an array using recursion
+by using a static (global) ArrayList.**
+
+---
+
+## ✅ CODE
+
+```java
+static ArrayList<Integer> list = new ArrayList<>();
+
+static void find2(int[] arr, int target, int index) {
+
+    // base condition
+    if (index == arr.length) return;
+
+    // check current index
+    if (arr[index] == target) {
+        list.add(index);
+    }
+
+    // recursive call
+    find2(arr, target, index + 1);
+}
+```
+
+Call:
+
+```java
+find2(arr, 2, 0);
+System.out.println(list);
+```
+
+---
+
+## ✅ SIMPLE EXPLANATION (NO OVERTHINKING)
+
+* `list` is **static**, so it belongs to the **class**, not the function.
+* All recursive calls **share the same list**.
+* Each call:
+
+  * checks one index
+  * if match → adds index to the shared list
+  * moves to the next index
+* No return value is needed because results are stored globally.
+
+---
+
+## ✅ DRY RUN (STEP-BY-STEP)
+
+### Input:
+
+```text
+arr = [1, 2, 3, 2, 2]
+target = 2
+```
+
+| Call | index | arr[index] | Action   | list      |
+| ---- | ----- | ---------- | -------- | --------- |
+| 1    | 0     | 1          | no match | []        |
+| 2    | 1     | 2          | add 1    | [1]       |
+| 3    | 2     | 3          | no match | [1]       |
+| 4    | 3     | 2          | add 3    | [1, 3]    |
+| 5    | 4     | 2          | add 4    | [1, 3, 4] |
+| 6    | 5     | —          | stop     | [1, 3, 4] |
+
+---
+
+## ✅ OUTPUT
+
+```text
+[1, 3, 4]
+```
+
+---
+
+## 🚨 IMPORTANT CONCEPTS (INTERVIEWERS **WILL** ASK THIS)
+
+### 🔹 1. WHY DOES THIS WORK WITHOUT RETURN?
+
+Because:
+
+* `list` is **static**
+* Static variables are created **once**
+* All recursive calls modify the **same object in heap**
+
+👉 No need to return anything.
+
+---
+
+### 🔹 2. WHERE IS `list` STORED?
+
+* `list` → **Heap memory**
+* Reference stored in **class (static area)**
+* Function just accesses it
+
+---
+
+### 🔹 3. STACK vs HEAP (VERY IMPORTANT)
+
+| Stack                  | Heap             |
+| ---------------------- | ---------------- |
+| index, arr, target     | ArrayList object |
+| separate per call      | shared object    |
+| destroyed after return | stays alive      |
+
+---
+
+### 🔹 4. BIGGEST DRAWBACK (INTERVIEW GOLD ⚠️)
+
+```java
+find2(arr, 2, 0);
+find2(arr, 2, 0);
+```
+
+Output:
+
+```text
+[1, 3, 4, 1, 3, 4]
+```
+
+💀 WHY?
+
+* Static list **retains old data**
+* Must manually clear list
+
+---
+
+### 🔹 5. WHY INTERVIEWERS DON’T PREFER THIS
+
+❌ Uses global state
+❌ Not reusable
+❌ Not thread-safe
+❌ Fails in tree recursion
+
+They’ll ask:
+
+> “What if multiple test cases?”
+
+You must say:
+
+```java
+list.clear();
+```
+
+---
+
+### 🔹 6. WHEN IS THIS METHOD OK?
+
+✅ Simple linear recursion
+✅ One-time execution
+✅ Learning basics
+
+---
+
+## 🧠 FINAL ONE-LINER (MEMORIZE THIS)
+
+> This approach works because all recursive calls share the same static ArrayList, so results are accumulated globally without returning values.
+
+---
+
