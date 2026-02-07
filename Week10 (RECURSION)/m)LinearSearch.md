@@ -301,7 +301,7 @@ Once you see that, DS problems become mechanical.
 ---
 ### Ques 4:
 ---
-
+### (Linear Search on Multiple Occurences)
 ## ✅ QUESTION
 
 **Find all indices of a target element in an array using recursion
