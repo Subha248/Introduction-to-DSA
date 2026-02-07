@@ -1,3 +1,4 @@
+
 ---
 
 # 🔍 LINEAR SEARCH USING RECURSION
