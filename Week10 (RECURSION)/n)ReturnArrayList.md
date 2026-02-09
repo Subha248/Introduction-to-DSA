@@ -1,3 +1,196 @@
+---
+
+# ❓ MAIN QUESTION
+
+**How does passing an ArrayList as a parameter work in recursion, and how does it store values?**
+
+---
+
+# ✅ FULL CODE (PASSING LIST AS PARAMETER)
+
+```java
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int[] arr = {2, 3, 1, 4, 4, 5};
+        int target = 4;
+
+        ArrayList<Integer> list = new ArrayList<>();
+
+        findAllIndex(arr, target, 0, list);
+
+        System.out.println(list);
+    }
+
+    static void findAllIndex(int[] arr, int target, int index, ArrayList<Integer> list) {
+
+        // Base case: if index is beyond array length, return
+        if (index == arr.length) {
+            return;
+        }
+
+        // If current element matches the target, add index to list
+        if (arr[index] == target) {
+            list.add(index);
+        }
+
+        // Recursive call to the next index
+        findAllIndex(arr, target, index + 1, list);
+    }
+}
+```
+
+---
+
+# 🧠 LINE-BY-LINE EXPLANATION
+
+## 1️⃣ `main()` function
+
+```java
+int[] arr = {2, 3, 1, 4, 4, 5};
+int target = 4;
+```
+
+* **arr** is the input array.
+* **target** is the number we want to find.
+
+---
+
+```java
+ArrayList<Integer> list = new ArrayList<>();
+```
+
+* We create **one ArrayList** in `main`.
+* This list will store all the indices of the target.
+
+---
+
+```java
+findAllIndex(arr, target, 0, list);
+```
+
+* We start the recursion from **index 0**.
+* We pass the **same list** to every recursive call.
+
+---
+
+## 2️⃣ `findAllIndex()` function
+
+```java
+if (index == arr.length) {
+    return;
+}
+```
+
+* **Base case**: When the index reaches the end of the array, we stop the recursion.
+
+---
+
+```java
+if (arr[index] == target) {
+    list.add(index);
+}
+```
+
+* If the element at the current index matches the target, we add that index to our list.
+
+---
+
+```java
+findAllIndex(arr, target, index + 1, list);
+```
+
+* We call the function recursively for the next index.
+* We pass the **same list** each time.
+
+---
+
+# 🔥 HOW VALUES ARE STORED (WORKING PROCESS)
+
+## 🧩 MEMORY & STACK DIAGRAM
+
+### Initial Call (index = 0)
+
+* **Heap**: One `ArrayList` object.
+* **Stack**: `main()` calls `findAllIndex(arr, target, 0, list)`.
+
+### Call 1 (index = 0)
+
+* Check `arr[0]` = 2 (no match for target 4).
+* List remains empty `[]`.
+* Call next index: `findAllIndex(arr, target, 1, list)`.
+
+### Call 2 (index = 1)
+
+* Check `arr[1]` = 3 (no match).
+* List still `[]`.
+* Call next index: `findAllIndex(arr, target, 2, list)`.
+
+### Call 3 (index = 2)
+
+* Check `arr[2]` = 1 (no match).
+* List still `[]`.
+* Call next index: `findAllIndex(arr, target, 3, list)`.
+
+### Call 4 (index = 3)
+
+* Check `arr[3]` = 4 (match).
+* Add index 3 to list: `list = [3]`.
+* Call next index: `findAllIndex(arr, target, 4, list)`.
+
+### Call 5 (index = 4)
+
+* Check `arr[4]` = 4 (match).
+* Add index 4 to list: `list = [3, 4]`.
+* Call next index: `findAllIndex(arr, target, 5, list)`.
+
+### Call 6 (index = 5)
+
+* Check `arr[5]` = 5 (no match).
+* List remains `[3, 4]`.
+* Call next index: `findAllIndex(arr, target, 6, list)`.
+
+### Call 7 (index = 6)
+
+* Base case reached (`index == arr.length`).
+* Return.
+
+---
+
+## 🧠 FINAL OUTPUT
+
+After all recursive calls complete, the `list` in `main` now contains all indices where the target was found.
+
+```java
+System.out.println(list);
+```
+
+**Output:**
+
+```
+[3, 4]
+```
+
+---
+
+# 🧠 WHY THIS WORKS
+
+* **Single List**: By passing the same `ArrayList` as a parameter, all recursive calls modify the same object in memory.
+* **No Copies**: No new lists are created, so the indices are added directly to the original list.
+* **Shared Reference**: Each call has the same reference to the list, so all changes persist.
+
+---
+
+# 🔥 KEY TAKEAWAYS
+
+1. **Efficiency**: Only one `ArrayList` is created, making it memory efficient.
+2. **Shared State**: All calls operate on the same list, so no need to merge or return values.
+3. **Simplicity**: This method is straightforward and commonly used in real-world code.
+
+---
 
 ---
 
