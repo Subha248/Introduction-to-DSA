@@ -303,4 +303,276 @@ That’s an **instant green flag** answer 🟢
   * Grid / matrix problems
 
 ---
+---
+
+# Q2: Triangle 2 (Normal Triangle using Recursion)
+
+## 🔑 MAIN APPROACH (THIS TIME, DIFFERENT FLAVOR)
+
+**Do the work AFTER the recursive call.**
+
+That’s it. That’s the whole trick.
+
+👉 **“If you print after recursion, work happens during stack unwinding.”**
+
+This is called **post-order recursion** (don’t panic, just a name).
+
+---
+
+## 🧠 Compare Triangle 1 vs Triangle 2 (VERY IMPORTANT)
+
+| Triangle 1                 | Triangle 2                  |
+| -------------------------- | --------------------------- |
+| Print **before** recursion | Print **after** recursion   |
+| Work during downward calls | Work during stack unwinding |
+| Like Bubble Sort           | Like Selection Sort         |
+
+---
+
+## 🧠 LOOP VERSION (ALWAYS START HERE)
+
+Normal triangle output:
+
+```
+*
+**
+***
+****
+```
+
+Loop logic:
+
+```java
+for (int r = 1; r <= n; r++) {
+    for (int c = 0; c < r; c++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+```
+
+Now convert this thinking to recursion.
+
+---
+
+## 🔁 CONVERSION RULE (SAME AS BEFORE)
+
+* `r` → row controller
+* `c` → column controller
+* BUT 👉 **printing happens after recursion**
+
+---
+
+## ✅ FULL CODE (WITH MAIN)
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int n = 4;
+        triangle2(n, 0);
+    }
+
+    static void triangle2(int r, int c) {
+        // Base case
+        if (r == 0) {
+            return;
+        }
+
+        if (c < r) {
+            // Go deep first
+            triangle2(r, c + 1);
+            // Print while coming back
+            System.out.print("* ");
+        } else {
+            // Go to next row first
+            triangle2(r - 1, 0);
+            // New line while coming back
+            System.out.println();
+        }
+    }
+}
+```
+
+---
+
+## 🧩 LINE-BY-LINE EXPLANATION (EASY MODE)
+
+```java
+if (r == 0) return;
+```
+
+🛑 Stop recursion (same as loop end)
+
+---
+
+```java
+if (c < r) {
+```
+
+“I’m still inside the row”
+
+---
+
+```java
+triangle2(r, c + 1);
+```
+
+👉 Go **deeper first**
+No printing yet ❌
+
+---
+
+```java
+System.out.print("* ");
+```
+
+⭐ Print **while stack is returning**
+
+---
+
+```java
+triangle2(r - 1, 0);
+System.out.println();
+```
+
+* Finish deeper rows first
+* Print new line while returning
+
+---
+
+# 🔁 FULL DRY RUN (THIS IS THE MAGIC PART)
+
+Initial call:
+
+```java
+triangle2(4, 0)
+```
+
+### Calls go DOWN first (no printing yet)
+
+```
+triangle2(4,0)
+ triangle2(4,1)
+  triangle2(4,2)
+   triangle2(4,3)
+    triangle2(4,4)
+     triangle2(3,0)
+      triangle2(3,1)
+       triangle2(3,2)
+        triangle2(3,3)
+         triangle2(2,0)
+          triangle2(2,1)
+           triangle2(2,2)
+            triangle2(1,0)
+             triangle2(1,1)
+              triangle2(0,0) ← base case
+```
+
+---
+
+### NOW STACK UNWINDS (PRINTING STARTS)
+
+Row by row while returning:
+
+```
+*
+* *
+* * *
+* * * *
+```
+
+Final output:
+
+```
+*
+**
+***
+****
+```
+
+---
+
+## 🧠 WHY THIS WORKS (STACK LOGIC)
+
+* Recursive calls go **down**
+* Printing waits
+* Printing happens **while coming back**
+* Smaller rows print first
+
+👉 **Last call finishes first (LIFO)**
+
+---
+
+# 🔗 CONNECTION TO SELECTION SORT (SUPER IMPORTANT)
+
+### Bubble Sort (Triangle 1 logic)
+
+* Swap WHILE traversing
+* Work happens on the way down
+
+### Selection Sort (Triangle 2 logic)
+
+* Find max first
+* Swap AFTER traversal finishes
+
+---
+
+## ✅ RECURSIVE SELECTION SORT (WITH MAIN)
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = {4, 3, 1, 2};
+        selection(arr, arr.length, 0, 0);
+
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+
+    static void selection(int[] arr, int r, int c, int max) {
+        if (r == 0) {
+            return;
+        }
+
+        if (c < r) {
+            if (arr[c] > arr[max]) {
+                selection(arr, r, c + 1, c);
+            } else {
+                selection(arr, r, c + 1, max);
+            }
+        } else {
+            // swap AFTER traversal
+            int temp = arr[max];
+            arr[max] = arr[r - 1];
+            arr[r - 1] = temp;
+
+            selection(arr, r - 1, 0, 0);
+        }
+    }
+}
+```
+
+---
+
+## 🧠 THINKING PROCESS (INTERVIEW GOLD)
+
+Say this 👇
+
+> “Triangle 2 uses post-order recursion.
+> I delay the work until the recursive traversal finishes.
+> This same idea is used in Selection Sort, where the swap happens only after finding the maximum.”
+
+That’s a **chef’s-kiss answer** 👌
+
+---
+
+## 🧠 FINAL TAKEAWAYS (SAVE THIS)
+
+* Print **before recursion** → Bubble Sort logic
+* Print **after recursion** → Selection Sort logic
+* Stack unwinding = delayed work
+* Same parameters, same structure, different timing
+
+---
 
